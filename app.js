@@ -178,6 +178,10 @@ const addToCsvFile = (data, fileId) => {
   });
 }
 
+app.get('/', (req, res) => {
+  res.status(200).json({message: "Hello world!"})
+})
+
 app.get('/scrape', async (req, res) => {
   const targetUrl = req.query.targetUrl;
   const depth = req.query.depth;
