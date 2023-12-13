@@ -178,8 +178,11 @@ const addToCsvFile = (data, fileId) => {
   });
 }
 
-app.get('/', (req, res) => {
-  res.status(200).json({message: "Hello world!"})
+app.get('/', async (req, res) => {
+  return res.status(200).json({
+    title: "Express Testing",
+    message: "The app is working properly!",
+  });
 })
 
 app.get('/scrape', async (req, res) => {
