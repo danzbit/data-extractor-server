@@ -1,22 +1,23 @@
 const express = require('express');
-const jsdom = require('jsdom')
-const { JSDOM } = jsdom;
-const cors = require('cors')
-const fs = require('fs')
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
-const uuid = require('uuid');
-const bodyParser = require('body-parser');
-const path = require('path');
-const cron = require('node-cron');
-const cheerio = require('cheerio');
+// const jsdom = require('jsdom')
+// const { JSDOM } = jsdom;
+// const cors = require('cors')
+// const fs = require('fs')
+// const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+// const uuid = require('uuid');
+// const bodyParser = require('body-parser');
+// const path = require('path');
+// const cron = require('node-cron');
+// const cheerio = require('cheerio');
 const api = require('./routes/routes')
 
 const app = express();
 const port = 3000;
 
-app.use(cors())
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+//app.use(cors())
+//app.use(bodyParser.json({ limit: '50mb' }));
+//app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(express.json())
 
 function generateFileName() {
   return uuid.v4();
