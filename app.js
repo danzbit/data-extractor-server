@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cron = require('node-cron');
 const cheerio = require('cheerio');
+const api = require('./routes/routes')
 
 const app = express();
 const port = 3000;
@@ -178,12 +179,7 @@ const addToCsvFile = (data, fileId) => {
   });
 }
 
-app.get('/', async (req, res) => {
-  return res.status(200).json({
-    title: "Express Testing",
-    message: "The app is working properly!",
-  });
-})
+app.use('/api', api)
 
 // app.get('/scrape', async (req, res) => {
 //   const targetUrl = req.query.targetUrl;
