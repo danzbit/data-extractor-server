@@ -185,77 +185,78 @@ app.get('/', async (req, res) => {
   });
 })
 
-app.get('/scrape', async (req, res) => {
-  const targetUrl = req.query.targetUrl;
-  const depth = req.query.depth;
+// app.get('/scrape', async (req, res) => {
+//   const targetUrl = req.query.targetUrl;
+//   const depth = req.query.depth;
 
-  try {
-    const result = await crawlAndReturnResult(targetUrl, depth);
-    res.json(result);
-  } catch (error) {
-    let errorMessage = 'An error occurred while scraping the page.';
+//   try {
+//     const result = await crawlAndReturnResult(targetUrl, depth);
+//     res.json(result);
+//   } catch (error) {
+//     let errorMessage = 'An error occurred while scraping the page.';
 
-    if (error.name === 'AbortError') {
-      errorMessage = `Timeout error scraping ${targetUrl}.`;
-    } else {
-      errorMessage = `Error scraping ${targetUrl}: ${error.message || error}`;
-    }
+//     if (error.name === 'AbortError') {
+//       errorMessage = `Timeout error scraping ${targetUrl}.`;
+//     } else {
+//       errorMessage = `Error scraping ${targetUrl}: ${error.message || error}`;
+//     }
 
-    res.status(500).json({ error: errorMessage });
-  }
-});
+//     res.status(500).json({ error: errorMessage });
+//   }
+// });
 
-app.post('/csv', async (req, res) => {
-  const fileId = generateFileName();
-  const result = req.body;
+// app.post('/csv', async (req, res) => {
+//   const fileId = generateFileName();
+//   const result = req.body;
 
-  convertToCsv(result, fileId);
+//   convertToCsv(result, fileId);
 
-  res.status(200).json({ fileId })
-})
+//   res.status(200).json({ fileId })
+// })
 
-app.get('/download/:fileId', (req, res) => {
-  const { fileId } = req.params
-  res.download(`./uploads/data-${fileId}-collected.csv`)
-});
+// app.get('/download/:fileId', (req, res) => {
+//   const { fileId } = req.params
+//   res.download(`./uploads/data-${fileId}-collected.csv`)
+// });
 
-app.post('/add-csv', (req, res) => {
-  const fileId = generateFileName();
-  const result = req.body
+// app.post('/add-csv', (req, res) => {
+//   const fileId = generateFileName();
+//   const result = req.body
 
-  addToCsvFile(result, fileId);
+//   addToCsvFile(result, fileId);
 
-  res.status(200).json({ fileId })
-})
+//   res.status(200).json({ fileId })
+// })
+
+// const uploadFolderPath = path.join(__dirname, 'uploads');
+
+// const deleteFilesInUploads = () => {
+//   fs.readdir(uploadFolderPath, (err, files) => {
+//     if (err) {
+//       console.error('Ошибка при чтении директории:', err);
+//       return;
+//     }
+
+//     files.forEach((file) => {
+//       const filePath = path.join(uploadFolderPath, file);
+
+//       fs.unlink(filePath, (unlinkErr) => {
+//         if (unlinkErr) {
+//           console.error('Ошибка при удалении файла:', unlinkErr);
+//         } else {
+//           console.log(`Файл ${file} удален успешно.`);
+//         }
+//       });
+//     });
+//   });
+// };
+
+// cron.schedule('0 0 * * *', () => {
+//   deleteFilesInUploads();
+// });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
 
-const uploadFolderPath = path.join(__dirname, 'uploads');
-
-const deleteFilesInUploads = () => {
-  fs.readdir(uploadFolderPath, (err, files) => {
-    if (err) {
-      console.error('Ошибка при чтении директории:', err);
-      return;
-    }
-
-    files.forEach((file) => {
-      const filePath = path.join(uploadFolderPath, file);
-
-      fs.unlink(filePath, (unlinkErr) => {
-        if (unlinkErr) {
-          console.error('Ошибка при удалении файла:', unlinkErr);
-        } else {
-          console.log(`Файл ${file} удален успешно.`);
-        }
-      });
-    });
-  });
-};
-
-cron.schedule('0 0 * * *', () => {
-  deleteFilesInUploads();
-});
