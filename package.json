@@ -7,8 +7,7 @@
     "node": "18.x"
   },
   "scripts": {
-    "start": "node app.js",
-    "start-dev": "nodemon index.js"
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
